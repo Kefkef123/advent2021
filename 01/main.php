@@ -16,9 +16,25 @@ $input = [
 $counter = 0;
 
 array_walk($input, function($value, $index) use (&$counter, $input) {
-    if(isset($input[$index - 1]) && $value > $input[$index - 1]) {
+    if($index < 3) {
+        return;
+    }
+
+    $currentValue = 0;
+    $previousValue = 0;
+
+    if($index > 1) {
+        $currentValue = $input[$index - 2] + $input[$index - 1] + $value;
+    }
+
+    if($index > 2) {
+        $previousValue = $input[$index - 3] + $input[$index - 2] + $input[$index - 1];
+    }
+
+    if($currentValue > $previousValue) {
         $counter++;
     }
+
 });
 
 echo $counter;
